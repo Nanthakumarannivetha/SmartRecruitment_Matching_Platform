@@ -25,7 +25,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Data\Configurations\" />
     <Folder Include="DTOs\Employers\" />
-    <Folder Include="DTOs\JobSeekers\" />
     <Folder Include="DTOs\Jobs\" />
     <Folder Include="DTOs\Applications\" />
     <Folder Include="DTOs\ContactRequests\" />

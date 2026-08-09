@@ -46,6 +46,14 @@ namespace SmartRecruitment_Project.Middleware
                 ConflictException =>
                     HttpStatusCode.Conflict,
 
+                ArgumentException =>
+                    HttpStatusCode.BadRequest,
+
+                KeyNotFoundException =>
+                    HttpStatusCode.NotFound,
+
+                FileNotFoundException =>
+                    HttpStatusCode.NotFound,
                 _ =>
                     HttpStatusCode.InternalServerError
             };

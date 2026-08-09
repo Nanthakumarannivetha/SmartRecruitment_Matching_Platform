@@ -99,6 +99,18 @@ namespace SmartRecruitment_Project
                 IJwtTokenService,
                 JwtTokenService>();
 
+            builder.Services.AddScoped<
+                IJobSeekerRepository,
+                JobSeekerRepository>();
+
+            builder.Services.AddScoped<
+                IJobSeekerService,
+                JobSeekerService>();
+
+            builder.Services.AddScoped<
+                IFileStorageService,
+                LocalFileStorageService>();
+
             // ==========================================
             // Swagger / OpenAPI
             // ==========================================
