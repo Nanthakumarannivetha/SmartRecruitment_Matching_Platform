@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Text.Json;
 using SmartRecruitment_Project.Exceptions;
 
@@ -46,6 +46,15 @@ namespace SmartRecruitment_Project.Middleware
                 ConflictException =>
                     HttpStatusCode.Conflict,
 
+                ArgumentException =>
+                    HttpStatusCode.BadRequest,
+
+                KeyNotFoundException =>
+                    HttpStatusCode.NotFound,
+
+                FileNotFoundException =>
+                    HttpStatusCode.NotFound,
+
                 _ =>
                     HttpStatusCode.InternalServerError
             };
@@ -53,7 +62,8 @@ namespace SmartRecruitment_Project.Middleware
             var response = new
             {
                 statusCode = (int)statusCode,
-                message = statusCode == HttpStatusCode.InternalServerError
+                message = statusCode ==
+                          HttpStatusCode.InternalServerError
                     ? "An unexpected error occurred."
                     : exception.Message
             };
@@ -61,7 +71,8 @@ namespace SmartRecruitment_Project.Middleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)statusCode;
 
-            var jsonResponse = JsonSerializer.Serialize(response);
+            var jsonResponse =
+                JsonSerializer.Serialize(response);
 
             await context.Response.WriteAsync(jsonResponse);
         }

@@ -85,7 +85,7 @@ namespace SmartRecruitment_Project
             builder.Services.AddAuthorization();
 
             // ==========================================
-            // Dependency Injection
+            // Member 1 - Authentication
             // ==========================================
             builder.Services.AddScoped<
                 IAuthRepository,
@@ -99,9 +99,27 @@ namespace SmartRecruitment_Project
                 IJwtTokenService,
                 JwtTokenService>();
 
+            // ==========================================
+            // Member 2 - Job Seeker / CV
+            // ==========================================
             builder.Services.AddScoped<
-    IEmployerRepository,
-    EmployerRepository>();
+                IJobSeekerRepository,
+                JobSeekerRepository>();
+
+            builder.Services.AddScoped<
+                IJobSeekerService,
+                JobSeekerService>();
+
+            builder.Services.AddScoped<
+                IFileStorageService,
+                LocalFileStorageService>();
+
+            // ==========================================
+            // Member 3 - Employer / Jobs
+            // ==========================================
+            builder.Services.AddScoped<
+                IEmployerRepository,
+                EmployerRepository>();
 
             builder.Services.AddScoped<
                 IEmployerService,
@@ -114,9 +132,13 @@ namespace SmartRecruitment_Project
             builder.Services.AddScoped<
                 IJobService,
                 JobService>();
+
+            // ==========================================
+            // Member 5 - Notifications / Admin
+            // ==========================================
             builder.Services.AddScoped<
-    INotificationRepository,
-    NotificationRepository>();
+                INotificationRepository,
+                NotificationRepository>();
 
             builder.Services.AddScoped<
                 INotificationService,
@@ -129,6 +151,7 @@ namespace SmartRecruitment_Project
             builder.Services.AddScoped<
                 IAdminService,
                 AdminService>();
+
             // ==========================================
             // Swagger / OpenAPI
             // ==========================================
@@ -190,7 +213,6 @@ namespace SmartRecruitment_Project
             // ==========================================
             app.UseHttpsRedirection();
 
-            // Authentication must come before Authorization
             app.UseAuthentication();
 
             app.UseAuthorization();
