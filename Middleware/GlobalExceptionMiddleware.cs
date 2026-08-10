@@ -1,6 +1,7 @@
-﻿using System.Net;
-using System.Text.Json;
 using SmartRecruitment_Project.Exceptions;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
+using System.Text.Json;
 
 namespace SmartRecruitment_Project.Middleware
 {
@@ -19,51 +20,74 @@ namespace SmartRecruitment_Project.Middleware
             {
                 await _next(context);
             }
-            catch (Exception ex)
+            catch (ValidationException ex)
             {
-                await HandleExceptionAsync(context, ex);
+                await WriteErrorResponseAsync(
+                    context,
+                    HttpStatusCode.BadRequest,
+                    ex.Message);
+            }
+            catch (UnauthorizedException ex)
+            {
+                await WriteErrorResponseAsync(
+                    context,
+                    HttpStatusCode.Unauthorized,
+                    ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                await WriteErrorResponseAsync(
+                    context,
+                    HttpStatusCode.NotFound,
+                    ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                await WriteErrorResponseAsync(
+                    context,
+                    HttpStatusCode.Forbidden,
+                    ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                await WriteErrorResponseAsync(
+                    context,
+                    HttpStatusCode.Conflict,
+                    ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                await WriteErrorResponseAsync(
+                    context,
+                    HttpStatusCode.BadRequest,
+                    ex.Message);
+            }
+            catch (Exception)
+            {
+                await WriteErrorResponseAsync(
+                    context,
+                    HttpStatusCode.InternalServerError,
+                    "An unexpected error occurred.");
             }
         }
 
-        private static async Task HandleExceptionAsync(
+        private static async Task WriteErrorResponseAsync(
             HttpContext context,
-            Exception exception)
+            HttpStatusCode statusCode,
+            string message)
         {
-            var statusCode = exception switch
-            {
-                BadRequestException =>
-                    HttpStatusCode.BadRequest,
-
-                UnauthorizedException =>
-                    HttpStatusCode.Unauthorized,
-
-                ForbiddenException =>
-                    HttpStatusCode.Forbidden,
-
-                NotFoundException =>
-                    HttpStatusCode.NotFound,
-
-                ConflictException =>
-                    HttpStatusCode.Conflict,
-
-                _ =>
-                    HttpStatusCode.InternalServerError
-            };
-
-            var response = new
-            {
-                statusCode = (int)statusCode,
-                message = statusCode == HttpStatusCode.InternalServerError
-                    ? "An unexpected error occurred."
-                    : exception.Message
-            };
-
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)statusCode;
 
-            var jsonResponse = JsonSerializer.Serialize(response);
+            var response = new
+            {
+                statusCode = context.Response.StatusCode,
+                message
+            };
 
-            await context.Response.WriteAsync(jsonResponse);
+            var json = JsonSerializer.Serialize(response);
+
+            await context.Response.WriteAsync(json);
         }
     }
 }
