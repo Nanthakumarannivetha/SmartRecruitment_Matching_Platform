@@ -1,0 +1,36 @@
+/* Profile Page Styling */
+.profile-section {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cv-upload-box {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  text-align: center;
+  background-color: var(--bg-main);
+  transition: border-color var(--transition-fast);
+  cursor: pointer;
+}
+
+.cv-upload-box:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.file-input-hidden {
+  display: none;
+}

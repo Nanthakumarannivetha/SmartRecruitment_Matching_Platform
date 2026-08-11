@@ -55,6 +55,34 @@ namespace SmartRecruitment_Project.Middleware
                     HttpStatusCode.Conflict,
                     ex.Message);
             }
+            catch (BadRequestException ex)
+            {
+                await WriteErrorResponseAsync(
+                    context,
+                    HttpStatusCode.BadRequest,
+                    ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                await WriteErrorResponseAsync(
+                    context,
+                    HttpStatusCode.NotFound,
+                    ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                await WriteErrorResponseAsync(
+                    context,
+                    HttpStatusCode.Forbidden,
+                    ex.Message);
+            }
+            catch (ConflictException ex)
+            {
+                await WriteErrorResponseAsync(
+                    context,
+                    HttpStatusCode.Conflict,
+                    ex.Message);
+            }
             catch (ArgumentException ex)
             {
                 await WriteErrorResponseAsync(

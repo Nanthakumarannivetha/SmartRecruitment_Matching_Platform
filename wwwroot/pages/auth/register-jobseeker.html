@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Seeker Registration | SmartRecruitment</title>
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/auth.css">
+</head>
+<body class="auth-page">
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <a href="../../index.html" class="brand-logo" style="justify-content:center;">
+        <div class="brand-icon">S</div>
+        SmartRecruitment
+      </a>
+      <p class="auth-subtitle">Create a Job Seeker Account</p>
+    </div>
+
+    <form id="register-form">
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input type="email" id="email" class="form-control" placeholder="candidate@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+        <span class="form-text">Must be at least 8 characters with 1 uppercase, 1 lowercase, 1 number & 1 special character.</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" class="form-control" placeholder="••••••••" required>
+      </div>
+
+      <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; margin-top:1rem;">
+        Create Account
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Already have an account? <a href="login.html">Sign In</a></p>
+      <p style="margin-top:0.5rem;"><a href="register-employer.html">Are you an Employer? Register here</a></p>
+    </div>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/ui.js"></script>
+  <script src="../../js/validation.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('register-form');
+      const submitBtn = document.getElementById('submit-btn');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        Validation.clearError('email');
+        Validation.clearError('password');
+        Validation.clearError('confirm-password');
+
+        if (!Validation.isValidEmail(email)) {
+          Validation.showError('email', 'Invalid email format.');
+          return;
+        }
+
+        if (!Validation.isValidPassword(password)) {
+          Validation.showError('password', 'Password must have 8+ chars with uppercase, lowercase, number and special character.');
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          Validation.showError('confirm-password', 'Passwords do not match.');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating Account...';
+
+        try {
+          const result = await API.post('auth/register/job-seeker', {
+            email,
+            password,
+            confirmPassword
+          });
+
+          Auth.saveAuth(result);
+          UI.showToast('Account created successfully!', 'success');
+          setTimeout(() => {
+            Auth.redirectToDashboard(result.role);
+          }, 600);
+        } catch (err) {
+          UI.showToast(err.message || 'Registration failed.', 'error');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Create Account';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

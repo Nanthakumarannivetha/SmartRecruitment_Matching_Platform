@@ -170,8 +170,18 @@ namespace SmartRecruitment_Project
                 JobDiscoveryService>();
 
             // ==========================================
-            // Member 5 - Notifications / Admin
+            // Member 5 - Contact Requests /
+            // Notifications / Admin
             // ==========================================
+
+            builder.Services.AddScoped<
+                IContactRequestRepository,
+                ContactRequestRepository>();
+
+            builder.Services.AddScoped<
+                IContactRequestService,
+                ContactRequestService>();
+
             builder.Services.AddScoped<
                 INotificationRepository,
                 NotificationRepository>();
@@ -226,6 +236,19 @@ namespace SmartRecruitment_Project
             });
 
             // ==========================================
+            // CORS Policy for Frontend Development
+            // ==========================================
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
+            // ==========================================
             // Build Application
             // ==========================================
             var app = builder.Build();
@@ -234,6 +257,11 @@ namespace SmartRecruitment_Project
             // Global Exception Handling
             // ==========================================
             app.UseMiddleware<GlobalExceptionMiddleware>();
+
+            app.UseCors("AllowFrontend");
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             // ==========================================
             // Swagger
@@ -254,6 +282,8 @@ namespace SmartRecruitment_Project
             app.UseAuthorization();
 
             app.MapControllers();
+
+            
 
             app.Run();
         }

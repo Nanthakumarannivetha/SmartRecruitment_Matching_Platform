@@ -1,4 +1,4 @@
-﻿using SmartRecruitment_Project.Models;
+using SmartRecruitment_Project.Models;
 
 namespace SmartRecruitment_Project.Interfaces.Repositories
 {
@@ -27,5 +27,9 @@ namespace SmartRecruitment_Project.Interfaces.Repositories
 
         Task AddVacancySkillsAsync(
             List<JobVacancySkill> jobVacancySkills);
+
+        Task<Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction> BeginTransactionAsync();
+
+        Task RollbackTransactionAsync();
     }
 }
