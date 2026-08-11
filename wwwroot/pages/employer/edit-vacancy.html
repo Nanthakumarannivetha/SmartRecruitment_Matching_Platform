@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Job Vacancy | SmartRecruitment</title>
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+<body>
+
+  <div class="app-layout">
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="brand-logo">
+          <div class="brand-icon">S</div>
+          SmartRecruitment
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-icon">📊</span> Dashboard
+        </a>
+        <a href="profile.html" class="nav-item">
+          <span class="nav-icon">🏢</span> Company Profile
+        </a>
+        <a href="vacancies.html" class="nav-item active">
+          <span class="nav-icon">📢</span> Job Vacancies
+        </a>
+        <a href="create-vacancy.html" class="nav-item">
+          <span class="nav-icon">➕</span> Post New Vacancy
+        </a>
+        <a href="contact-requests.html" class="nav-item">
+          <span class="nav-icon">✉️</span> Candidate Responses
+        </a>
+        <a href="notifications.html" class="nav-item">
+          <span class="nav-icon">🔔</span> Notifications
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="logout-btn" class="nav-item" style="width:100%; border:none; background:none;">
+          <span class="nav-icon">🚪</span> Logout
+        </button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="flex items-center gap-3">
+          <span id="mobile-toggle" class="mobile-menu-toggle">☰</span>
+          <h2 id="page-form-title" class="header-title">Edit Vacancy</h2>
+        </div>
+        <div class="header-actions">
+          <div class="user-profile-badge">
+            <div id="header-user-avatar" class="user-avatar">E</div>
+            <div class="user-info-text">
+              <span id="header-user-name" class="user-name">Employer</span>
+              <span id="header-user-role" class="user-role-label">Employer</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="app-content" style="max-width:850px;">
+        <div class="card">
+          <form id="vacancy-form">
+            <div class="form-group">
+              <label class="form-label" for="title">Job Vacancy Title *</label>
+              <input type="text" id="title" class="form-control" required placeholder="e.g. Senior Backend Engineer">
+            </div>
+
+            <div class="grid grid-cols-2">
+              <div class="form-group">
+                <label class="form-label" for="location">Location / Remote Option</label>
+                <input type="text" id="location" class="form-control" placeholder="Colombo, Sri Lanka or Remote">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="min-experience">Minimum Experience Years *</label>
+                <input type="number" id="min-experience" class="form-control" min="0" max="50" value="2" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="education-level">Required Education Level *</label>
+              <select id="education-level" class="form-control" required>
+                <option value="0">Not Specified</option>
+                <option value="1">O/Level</option>
+                <option value="2">A/Level</option>
+                <option value="3">Diploma</option>
+                <option value="4">Bachelor's Degree</option>
+                <option value="5">Master's Degree</option>
+                <option value="6">Doctorate / PhD</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="description">Detailed Job Description *</label>
+              <textarea id="description" class="form-control" rows="5" required></textarea>
+            </div>
+
+            <!-- Required Skills Chips -->
+            <div class="form-group">
+              <label class="form-label">Required Technical Skills *</label>
+              <div class="flex gap-2" style="margin-bottom:0.75rem;">
+                <input type="text" id="skill-input" class="form-control" placeholder="e.g. C#, SQL Server, Docker" style="max-width:300px;">
+                <button type="button" id="add-skill-btn" class="btn btn-secondary">Add Skill Tag</button>
+              </div>
+              <div id="skills-list" class="skills-container" style="min-height:36px; padding:0.5rem; border:1px solid var(--border-color); border-radius:var(--radius-md); background:var(--bg-main);">
+              </div>
+            </div>
+
+            <div class="flex gap-3" style="margin-top:1.5rem; justify-content:flex-end;">
+              <a href="vacancies.html" class="btn btn-secondary">Cancel</a>
+              <button type="submit" id="save-btn" class="btn btn-primary">Update Vacancy</button>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/ui.js"></script>
+  <script src="../../js/common.js"></script>
+  <script src="../../js/employer/vacancy-form.js"></script>
+</body>
+</html>

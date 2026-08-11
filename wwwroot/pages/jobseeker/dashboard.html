@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Seeker Dashboard | SmartRecruitment</title>
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/dashboard.css">
+  <link rel="stylesheet" href="../../css/jobs.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+<body>
+
+  <div class="app-layout">
+    <!-- Sidebar Nav -->
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="brand-logo">
+          <div class="brand-icon">S</div>
+          SmartRecruitment
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-icon">📊</span> Dashboard
+        </a>
+        <a href="profile.html" class="nav-item">
+          <span class="nav-icon">👤</span> My Profile & Skills
+        </a>
+        <a href="jobs.html" class="nav-item">
+          <span class="nav-icon">🔍</span> Discover Jobs
+        </a>
+        <a href="applications.html" class="nav-item">
+          <span class="nav-icon">📄</span> My Applications
+        </a>
+        <a href="contact-requests.html" class="nav-item">
+          <span class="nav-icon">✉️</span> Contact Requests
+        </a>
+        <a href="notifications.html" class="nav-item">
+          <span class="nav-icon">🔔</span> Notifications
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="logout-btn" class="nav-item" style="width:100%; border:none; background:none;">
+          <span class="nav-icon">🚪</span> Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="app-main">
+      <header class="app-header">
+        <div class="flex items-center gap-3">
+          <span id="mobile-toggle" class="mobile-menu-toggle">☰</span>
+          <h2 class="header-title">Job Seeker Dashboard</h2>
+        </div>
+        <div class="header-actions">
+          <a href="notifications.html" style="position:relative; font-size:1.25rem;">
+            🔔 <span id="notification-badge" class="badge badge-rejected hidden" style="position:absolute; top:-5px; right:-8px; padding:0.1rem 0.4rem;">0</span>
+          </a>
+          <div class="user-profile-badge">
+            <div id="header-user-avatar" class="user-avatar">U</div>
+            <div class="user-info-text">
+              <span id="header-user-name" class="user-name">User</span>
+              <span id="header-user-role" class="user-role-label">JobSeeker</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="app-content">
+        <div class="welcome-banner">
+          <h2 id="welcome-name">Welcome back!</h2>
+          <p>Explore matching open vacancies tailored to your skills and track your job applications in real-time.</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-4" style="margin-bottom:2rem;">
+          <div class="stat-card">
+            <div class="stat-icon">📄</div>
+            <div class="stat-info">
+              <span id="stat-applications-count" class="stat-value">0</span>
+              <span class="stat-label">Applications</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">💡</div>
+            <div class="stat-info">
+              <span id="stat-skills-count" class="stat-value">0</span>
+              <span class="stat-label">Skills Added</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">✉️</div>
+            <div class="stat-info">
+              <span id="stat-requests-count" class="stat-value">0</span>
+              <span class="stat-label">Contact Requests</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">📎</div>
+            <div class="stat-info">
+              <span id="stat-cv-status" class="stat-value" style="font-size:1.1rem;">No CV</span>
+              <span class="stat-label">CV Status</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2">
+          <!-- Recommended Jobs Container -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Top Matching Jobs</h3>
+              <a href="jobs.html" class="btn btn-secondary btn-sm">View All Jobs</a>
+            </div>
+            <div id="recommended-jobs-list">
+              <div class="spinner"></div>
+            </div>
+          </div>
+
+          <!-- Recent Applications -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Recent Applications</h3>
+              <a href="applications.html" class="btn btn-secondary btn-sm">View All</a>
+            </div>
+            <div id="recent-applications-list">
+              <div class="spinner"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/ui.js"></script>
+  <script src="../../js/common.js"></script>
+  <script src="../../js/jobseeker/dashboard.js"></script>
+</body>
+</html>

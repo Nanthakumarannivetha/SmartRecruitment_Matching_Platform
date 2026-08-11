@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications | SmartRecruitment</title>
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+<body>
+
+  <div class="app-layout">
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="brand-logo">
+          <div class="brand-icon">S</div>
+          SmartRecruitment
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-icon">📊</span> Dashboard
+        </a>
+        <a href="profile.html" class="nav-item">
+          <span class="nav-icon">👤</span> My Profile & Skills
+        </a>
+        <a href="jobs.html" class="nav-item">
+          <span class="nav-icon">🔍</span> Discover Jobs
+        </a>
+        <a href="applications.html" class="nav-item">
+          <span class="nav-icon">📄</span> My Applications
+        </a>
+        <a href="contact-requests.html" class="nav-item">
+          <span class="nav-icon">✉️</span> Contact Requests
+        </a>
+        <a href="notifications.html" class="nav-item active">
+          <span class="nav-icon">🔔</span> Notifications
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="logout-btn" class="nav-item" style="width:100%; border:none; background:none;">
+          <span class="nav-icon">🚪</span> Logout
+        </button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="flex items-center gap-3">
+          <span id="mobile-toggle" class="mobile-menu-toggle">☰</span>
+          <h2 class="header-title">Notifications Center</h2>
+        </div>
+        <div class="header-actions">
+          <div class="user-profile-badge">
+            <div id="header-user-avatar" class="user-avatar">U</div>
+            <div class="user-info-text">
+              <span id="header-user-name" class="user-name">User</span>
+              <span id="header-user-role" class="user-role-label">JobSeeker</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="app-content" style="max-width:850px;">
+        <div id="notifications-container">
+          <div class="spinner"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/ui.js"></script>
+  <script src="../../js/common.js"></script>
+  <script src="../../js/jobseeker/notifications.js"></script>
+</body>
+</html>
