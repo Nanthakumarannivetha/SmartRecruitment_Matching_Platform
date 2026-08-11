@@ -254,6 +254,21 @@ namespace SmartRecruitment_Project
             var app = builder.Build();
 
             // ==========================================
+            // Demo Database Seed
+            // ==========================================  
+            if (app.Environment.IsDevelopment())
+            {
+                using var scope = app.Services.CreateScope();
+
+                var db = scope.ServiceProvider
+                    .GetRequiredService<AppDbContext>();
+
+                db.Database.Migrate();
+
+                DbSeeder.Seed(db);
+            }
+
+            // ==========================================
             // Global Exception Handling
             // ==========================================
             app.UseMiddleware<GlobalExceptionMiddleware>();

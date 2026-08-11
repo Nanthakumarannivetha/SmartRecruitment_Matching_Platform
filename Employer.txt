@@ -1,0 +1,27 @@
+Employer:
+
+employer.demo@smart.local
+Demo@123
+
+Main Job Seeker:
+
+jobseeker.demo@smart.local
+Demo@123
+
+Other Job Seekers:
+
+jobseeker2.demo@smart.local
+Demo@123
+
+jobseeker3.demo@smart.local
+Demo@123
+
+Administrator:
+
+admin.demo@smart.local
+Demo@123
+
+Inactive admin-test account:
+
+inactive.demo@smart.local
+Demo@123
