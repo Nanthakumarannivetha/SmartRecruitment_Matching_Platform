@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | SmartRecruitment</title>
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/profile.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+<body>
+
+  <div class="app-layout">
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="brand-logo">
+          <div class="brand-icon">S</div>
+          SmartRecruitment
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-icon">📊</span> Dashboard
+        </a>
+        <a href="profile.html" class="nav-item active">
+          <span class="nav-icon">👤</span> My Profile & Skills
+        </a>
+        <a href="jobs.html" class="nav-item">
+          <span class="nav-icon">🔍</span> Discover Jobs
+        </a>
+        <a href="applications.html" class="nav-item">
+          <span class="nav-icon">📄</span> My Applications
+        </a>
+        <a href="contact-requests.html" class="nav-item">
+          <span class="nav-icon">✉️</span> Contact Requests
+        </a>
+        <a href="notifications.html" class="nav-item">
+          <span class="nav-icon">🔔</span> Notifications
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="logout-btn" class="nav-item" style="width:100%; border:none; background:none;">
+          <span class="nav-icon">🚪</span> Logout
+        </button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="flex items-center gap-3">
+          <span id="mobile-toggle" class="mobile-menu-toggle">☰</span>
+          <h2 class="header-title">My Candidate Profile</h2>
+        </div>
+        <div class="header-actions">
+          <a href="notifications.html" style="position:relative; font-size:1.25rem;">
+            🔔 <span id="notification-badge" class="badge badge-rejected hidden" style="position:absolute; top:-5px; right:-8px; padding:0.1rem 0.4rem;">0</span>
+          </a>
+          <div class="user-profile-badge">
+            <div id="header-user-avatar" class="user-avatar">U</div>
+            <div class="user-info-text">
+              <span id="header-user-name" class="user-name">User</span>
+              <span id="header-user-role" class="user-role-label">JobSeeker</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="app-content" style="max-width: 900px;">
+        <!-- Basic Profile Info -->
+        <div class="profile-section">
+          <div class="profile-section-header">
+            <h3>Personal & Professional Details</h3>
+          </div>
+          <form id="profile-form">
+            <div class="grid grid-cols-2">
+              <div class="form-group">
+                <label class="form-label" for="full-name">Full Name *</label>
+                <input type="text" id="full-name" class="form-control" required placeholder="John Doe">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="location">Location / City</label>
+                <input type="text" id="location" class="form-control" placeholder="Colombo, Sri Lanka">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="experience-years">Years of Experience *</label>
+                <input type="number" id="experience-years" class="form-control" min="0" max="50" required value="0">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="education-level">Highest Education Level *</label>
+                <select id="education-level" class="form-control" required>
+                  <option value="0">Not Specified</option>
+                  <option value="1">O/Level</option>
+                  <option value="2">A/Level</option>
+                  <option value="3">Diploma</option>
+                  <option value="4">Bachelor's Degree</option>
+                  <option value="5">Master's Degree</option>
+                  <option value="6">Doctorate / PhD</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="summary">Professional Summary</label>
+              <textarea id="summary" class="form-control" rows="3" placeholder="Briefly describe your career background and tech expertise..."></textarea>
+            </div>
+
+            <button type="submit" id="save-profile-btn" class="btn btn-primary">Save Profile Info</button>
+          </form>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="profile-section">
+          <div class="profile-section-header">
+            <h3>Technical & Domain Skills</h3>
+          </div>
+          <p class="text-muted" style="margin-bottom:1rem; font-size:0.875rem;">Skills are used by the automated matching engine (60% match weight) to find suitable job vacancies.</p>
+
+          <div style="display:flex; gap:0.75rem; margin-bottom:1.25rem;">
+            <input type="text" id="new-skill-input" class="form-control" placeholder="Enter skill name (e.g. C#, SQL, React)" style="max-width:320px;">
+            <button id="add-skill-btn" class="btn btn-secondary">Add Skill</button>
+          </div>
+
+          <div id="skills-list" class="skills-container" style="min-height: 40px; margin-bottom: 1.5rem;">
+            <span class="text-muted" style="font-size:0.9rem;">No skills added yet.</span>
+          </div>
+
+          <button id="save-skills-btn" class="btn btn-primary">Save Skills List</button>
+        </div>
+
+        <!-- CV Document Section -->
+        <div class="profile-section">
+          <div class="profile-section-header">
+            <h3>Curriculum Vitae (CV)</h3>
+          </div>
+
+          <div id="current-cv-info" style="margin-bottom: 1.25rem;">
+            <p class="text-muted">Loading CV status...</p>
+          </div>
+
+          <div class="cv-upload-box" id="drop-zone" onclick="document.getElementById('cv-file-input').click()">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">📁</div>
+            <p style="font-weight:600;">Click to select or drag & drop your CV file</p>
+            <p class="text-subtle" style="font-size:0.8rem; margin-top:0.25rem;">Supported formats: PDF, DOC, DOCX (Max 5 MB)</p>
+            <input type="file" id="cv-file-input" class="file-input-hidden" accept=".pdf,.doc,.docx">
+          </div>
+          <div id="cv-selected-filename" class="text-primary font-semibold" style="margin-top:0.75rem;"></div>
+          <button id="upload-cv-btn" class="btn btn-primary hidden" style="margin-top:1rem;">Upload CV Document</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/ui.js"></script>
+  <script src="../../js/common.js"></script>
+  <script src="../../js/jobseeker/profile.js"></script>
+</body>
+</html>

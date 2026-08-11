@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal Dashboard | SmartRecruitment</title>
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/dashboard.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+<body>
+
+  <div class="app-layout">
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="brand-logo">
+          <div class="brand-icon">S</div>
+          SmartRecruitment
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item active">
+          <span class="nav-icon">📊</span> Overview & Metrics
+        </a>
+        <a href="users.html" class="nav-item">
+          <span class="nav-icon">👥</span> User Management
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="logout-btn" class="nav-item" style="width:100%; border:none; background:none;">
+          <span class="nav-icon">🚪</span> Logout
+        </button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="flex items-center gap-3">
+          <span id="mobile-toggle" class="mobile-menu-toggle">☰</span>
+          <h2 class="header-title">System Administration Dashboard</h2>
+        </div>
+        <div class="header-actions">
+          <div class="user-profile-badge">
+            <div id="header-user-avatar" class="user-avatar">A</div>
+            <div class="user-info-text">
+              <span id="header-user-name" class="user-name">Administrator</span>
+              <span id="header-user-role" class="user-role-label">Admin</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="app-content">
+        <div class="welcome-banner" style="background: linear-gradient(135deg, #10B981, #047857);">
+          <h2>Platform System Statistics</h2>
+          <p>Real-time metrics tracking platform activity across users, job postings, and applications.</p>
+        </div>
+
+        <div class="grid grid-cols-3" style="margin-bottom:2rem;">
+          <div class="stat-card">
+            <div class="stat-icon" style="background:var(--primary-light); color:var(--primary);">👥</div>
+            <div class="stat-info">
+              <span id="stat-total-users" class="stat-value">0</span>
+              <span class="stat-label">Total Registered Users</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon" style="background:var(--secondary-light); color:var(--secondary);">📢</div>
+            <div class="stat-info">
+              <span id="stat-total-vacancies" class="stat-value">0</span>
+              <span class="stat-label">Total Job Vacancies</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon" style="background:var(--success-light); color:var(--success-text);">📄</div>
+            <div class="stat-info">
+              <span id="stat-total-applications" class="stat-value">0</span>
+              <span class="stat-label">Total Applications Submitted</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Administrative Management</h3>
+          </div>
+          <p class="text-muted" style="margin-bottom:1.5rem;">Control user accounts, activate or deactivate accounts, and manage system roles.</p>
+          <a href="users.html" class="btn btn-primary">Manage System Users</a>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/ui.js"></script>
+  <script src="../../js/common.js"></script>
+  <script src="../../js/admin/dashboard.js"></script>
+</body>
+</html>

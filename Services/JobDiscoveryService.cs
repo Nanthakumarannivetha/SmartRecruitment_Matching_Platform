@@ -1,4 +1,4 @@
-﻿using SmartRecruitment.API.DTOs.Jobs;
+using SmartRecruitment.API.DTOs.Jobs;
 using SmartRecruitment.API.Interfaces.Repositories;
 using SmartRecruitment.API.Interfaces.Services;
 
@@ -56,7 +56,7 @@ public class JobDiscoveryService : IJobDiscoveryService
                 Location = job.Location,
 
                 CompanyName =
-                    job.EmployerProfile.CompanyName,
+                    job.EmployerProfile?.CompanyName ?? string.Empty,
 
                 MinimumExperienceYears =
                     job.MinimumExperienceYears,
@@ -125,7 +125,7 @@ public class JobDiscoveryService : IJobDiscoveryService
             Location = job.Location,
 
             CompanyName =
-                job.EmployerProfile.CompanyName,
+                job.EmployerProfile?.CompanyName ?? string.Empty,
 
             MinimumExperienceYears =
                 job.MinimumExperienceYears,

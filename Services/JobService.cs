@@ -1,4 +1,4 @@
-﻿using SmartRecruitment_Project.DTOs.Jobs;
+using SmartRecruitment_Project.DTOs.Jobs;
 using SmartRecruitment_Project.Exceptions;
 using SmartRecruitment_Project.Interfaces.Repositories;
 using SmartRecruitment_Project.Interfaces.Services;
@@ -142,28 +142,41 @@ namespace SmartRecruitment_Project.Services
                     "You cannot update this job vacancy.");
             }
 
-            job.Title = dto.Title.Trim();
-            job.Description = dto.Description.Trim();
-            job.Location = dto.Location?.Trim();
-            job.MinimumExperienceYears =
-                dto.MinimumExperienceYears;
-            job.RequiredEducationLevel =
-                dto.RequiredEducationLevel;
-            job.UpdatedAt = DateTime.UtcNow;
+            await using var transaction =
+                await _jobRepository.BeginTransactionAsync();
 
-            await _jobRepository.UpdateAsync(job);
+            try
+            {
+                job.Title = dto.Title.Trim();
+                job.Description = dto.Description.Trim();
+                job.Location = dto.Location?.Trim();
+                job.MinimumExperienceYears =
+                    dto.MinimumExperienceYears;
+                job.RequiredEducationLevel =
+                    dto.RequiredEducationLevel;
+                job.UpdatedAt = DateTime.UtcNow;
 
-            await _jobRepository
-                .RemoveVacancySkillsAsync(job.Id);
+                await _jobRepository.UpdateAsync(job);
 
-            await SaveRequiredSkillsAsync(
-                job.Id,
-                dto.RequiredSkills);
+                await _jobRepository
+                    .RemoveVacancySkillsAsync(job.Id);
 
-            var updatedJob =
-                await _jobRepository.GetByIdAsync(job.Id);
+                await SaveRequiredSkillsAsync(
+                    job.Id,
+                    dto.RequiredSkills);
 
-            return MapToDto(updatedJob!);
+                await transaction.CommitAsync();
+
+                var updatedJob =
+                    await _jobRepository.GetByIdAsync(job.Id);
+
+                return MapToDto(updatedJob!);
+            }
+            catch
+            {
+                await _jobRepository.RollbackTransactionAsync();
+                throw;
+            }
         }
 
         public async Task<JobVacancyDto> CloseJobAsync(
@@ -218,7 +231,7 @@ namespace SmartRecruitment_Project.Services
             foreach (var skillName in cleanSkills)
             {
                 var normalizedName =
-                    skillName.ToLowerInvariant();
+                    skillName.ToUpperInvariant();
 
                 var skill =
                     await _jobRepository

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | SmartRecruitment</title>
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/auth.css">
+</head>
+<body class="auth-page">
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <a href="../../index.html" class="brand-logo" style="justify-content:center;">
+        <div class="brand-icon"></div>
+        SmartRecruitment
+      </a>
+      <p class="auth-subtitle">Sign in to your account</p>
+    </div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input type="email" id="email" class="form-control" placeholder="user@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+      </div>
+
+      <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; margin-top:1rem;">
+        Sign In
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Don't have an account?</p>
+      <div style="margin-top:0.5rem; display:flex; gap:0.5rem; justify-content:center;">
+        <a href="register-jobseeker.html">Job Seeker Sign Up</a> | 
+        <a href="register-employer.html">Employer Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/ui.js"></script>
+  <script src="../../js/validation.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (Auth.isAuthenticated()) {
+        Auth.redirectToDashboard();
+        return;
+      }
+
+      const form = document.getElementById('login-form');
+      const submitBtn = document.getElementById('submit-btn');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        Validation.clearError('email');
+        Validation.clearError('password');
+
+        if (!Validation.isValidEmail(email)) {
+          Validation.showError('email', 'Please enter a valid email address');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Signing In...';
+
+        try {
+          const result = await API.post('auth/login', { email, password });
+          Auth.saveAuth(result);
+          UI.showToast('Login successful! Redirecting...', 'success');
+          setTimeout(() => {
+            Auth.redirectToDashboard(result.role);
+          }, 600);
+        } catch (err) {
+          UI.showToast(err.message || 'Login failed. Invalid email or password.', 'error');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Sign In';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

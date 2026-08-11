@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using SmartRecruitment_Project.DTOs.Auth;
 using SmartRecruitment_Project.Exceptions;
 using SmartRecruitment_Project.Interfaces.Repositories;
@@ -12,14 +12,20 @@ namespace SmartRecruitment_Project.Services
     {
         private readonly IAuthRepository _authRepository;
         private readonly IJwtTokenService _jwtTokenService;
+        private readonly IJobSeekerRepository _jobSeekerRepository;
+        private readonly IEmployerRepository _employerRepository;
         private readonly PasswordHasher<User> _passwordHasher;
 
         public AuthService(
             IAuthRepository authRepository,
-            IJwtTokenService jwtTokenService)
+            IJwtTokenService jwtTokenService,
+            IJobSeekerRepository jobSeekerRepository,
+            IEmployerRepository employerRepository)
         {
             _authRepository = authRepository;
             _jwtTokenService = jwtTokenService;
+            _jobSeekerRepository = jobSeekerRepository;
+            _employerRepository = employerRepository;
             _passwordHasher = new PasswordHasher<User>();
         }
 
@@ -52,6 +58,14 @@ namespace SmartRecruitment_Project.Services
 
             var createdUser =
                 await _authRepository.CreateUserAsync(user);
+
+            var profile = new JobSeekerProfile
+            {
+                UserId = createdUser.Id,
+                FullName = createdUser.Email.Split('@')[0]
+            };
+            await _jobSeekerRepository.AddProfileAsync(profile);
+            await _jobSeekerRepository.SaveChangesAsync();
 
             var token =
                 _jwtTokenService.GenerateToken(createdUser);
@@ -95,6 +109,14 @@ namespace SmartRecruitment_Project.Services
 
             var createdUser =
                 await _authRepository.CreateUserAsync(user);
+
+            var employerProfile = new EmployerProfile
+            {
+                UserId = createdUser.Id,
+                CompanyName = createdUser.Email.Split('@')[0],
+                UpdatedAt = DateTime.UtcNow
+            };
+            await _employerRepository.CreateAsync(employerProfile);
 
             var token =
                 _jwtTokenService.GenerateToken(createdUser);

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SmartRecruitment.API.DTOs.Applications;
 using SmartRecruitment.API.DTOs.Jobs;
 using SmartRecruitment.API.Interfaces.Repositories;
@@ -128,9 +128,7 @@ public class ApplicationService : IApplicationService
                 JobVacancyId = application.JobVacancyId,
                 JobTitle = application.JobVacancy.Title,
                 CompanyName =
-                    application.JobVacancy
-                        .EmployerProfile
-                        .CompanyName,
+                    application.JobVacancy?.EmployerProfile?.CompanyName ?? string.Empty,
                 MatchScore = application.MatchScore,
                 Status = application.Status,
                 AppliedAt = application.AppliedAt,
